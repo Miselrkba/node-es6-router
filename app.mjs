@@ -1,4 +1,3 @@
-//ES 6
 import { default as express } from 'express';
 import { default as hbs } from 'hbs';
 import * as path from 'path';
@@ -18,8 +17,11 @@ import {
 } from './appsupport.mjs';
 import { router as indexRouter } from './routes/index.mjs';
 // import { router as notesRouter } from './routes/notes.mjs';
+import { InMemoryNotesStore } from './models/notes-memory.mjs';
+export const NotesStore = new InMemoryNotesStore();
 
 export const app = express();
+
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'hbs');
@@ -31,6 +33,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+
 // Router function lists
 app.use('/', indexRouter);
 // app.use('/notes', notesRouter);
